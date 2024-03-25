@@ -39,6 +39,33 @@ class Buttons : Fragment() {
         binding.btZero.setOnClickListener {
             buttonPressed("0")
         }
+        binding.btOne.setOnClickListener {
+            buttonPressed("1")
+        }
+        binding.btTwo.setOnClickListener {
+            buttonPressed("2")
+        }
+        binding.btThree.setOnClickListener {
+            buttonPressed("3")
+        }
+        binding.btFour.setOnClickListener {
+            buttonPressed("4")
+        }
+        binding.btFive.setOnClickListener {
+            buttonPressed("5")
+        }
+        binding.btSix.setOnClickListener {
+            buttonPressed("6")
+        }
+        binding.btSeven.setOnClickListener {
+            buttonPressed("7")
+        }
+        binding.btEight.setOnClickListener {
+            buttonPressed("8")
+        }
+        binding.btNine.setOnClickListener {
+            buttonPressed("9")
+        }
 
         return binding.root
     }

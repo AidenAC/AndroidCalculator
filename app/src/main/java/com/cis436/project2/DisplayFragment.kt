@@ -23,6 +23,10 @@ class DisplayFragment : Fragment() {
     }
 
     fun updateDisplay(character : String) {
-        binding.tvDisplay.text = binding.tvDisplay.text.toString() + character
+        if (binding.tvDisplay.text.toString().toDouble() == 0.0) {
+            binding.tvDisplay.text = character
+        } else {
+            binding.tvDisplay.text = binding.tvDisplay.text.toString() + character
+        }
     }
 }
