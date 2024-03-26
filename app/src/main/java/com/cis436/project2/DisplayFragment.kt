@@ -23,10 +23,29 @@ class DisplayFragment : Fragment() {
     }
 
     fun updateDisplay(character : String) {
-        if (binding.tvDisplay.text.toString().toDouble() == 0.0) {
-            binding.tvDisplay.text = character
-        } else {
-            binding.tvDisplay.text = binding.tvDisplay.text.toString() + character
+        var currentNum = binding.tvDisplay.text.toString()
+        when (character) {
+            "!" -> {
+                if (currentNum.toDouble() != 0.0) {
+                    currentNum = if (currentNum.startsWith("-")) {
+                        currentNum.replace("-", "")
+                    } else {
+                        "-" + currentNum
+                    }
+                    binding.tvDisplay.text = currentNum
+                }
+            }
+            "." -> {
+                currentNum = currentNum.replace(character, "")
+                binding.tvDisplay.text = currentNum + character
+            }
+            else -> {
+                if (currentNum.toDouble() == 0.0) {
+                    binding.tvDisplay.text = character
+                } else {
+                    binding.tvDisplay.text = binding.tvDisplay.text.toString() + character
+                }
+            }
         }
     }
 }

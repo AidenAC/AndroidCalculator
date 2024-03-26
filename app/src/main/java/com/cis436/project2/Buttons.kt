@@ -66,6 +66,12 @@ class Buttons : Fragment() {
         binding.btNine.setOnClickListener {
             buttonPressed("9")
         }
+        binding.btDecimal.setOnClickListener {
+            buttonPressed(".")
+        }
+        binding.btInverse.setOnClickListener {
+            buttonPressed("!")
+        }
 
         return binding.root
     }
