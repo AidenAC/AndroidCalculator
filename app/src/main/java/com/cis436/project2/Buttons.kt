@@ -97,6 +97,14 @@ class Buttons : Fragment() {
             buttonPressed("=")
         }
 
+        //Clear Buttons
+        binding.btC.setOnClickListener {
+            buttonPressed("C")
+        }
+        binding.btCE.setOnClickListener {
+            buttonPressed("CE")
+        }
+
         return binding.root
     }
 

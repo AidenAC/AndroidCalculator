@@ -33,6 +33,9 @@ class DisplayFragment : Fragment() {
     fun updateDisplay(character : String) {
         var currentNum = binding.tvDisplay.text.toString()
         when (character) {
+            //Clear
+            "C" -> clear()
+            "CE" -> clearEntry()
             //Arithmetic
             "+" -> setCalculation(currentNum, character)
             "-" -> setCalculation(currentNum, character)
@@ -49,8 +52,13 @@ class DisplayFragment : Fragment() {
             //Set Numbers
             "!" -> inverse(currentNum)
             "." -> {
-                currentNum = currentNum.replace(character, "")
-                binding.tvDisplay.text = currentNum + character
+                if (newNum) {
+                    binding.tvDisplay.text = "0."
+                } else {
+                    currentNum = currentNum.replace(character, "")
+                    binding.tvDisplay.text = currentNum + character
+                }
+                newNum = false
             }
             else -> {
                 if (currentNum == "0" || newNum) {
@@ -125,4 +133,14 @@ class DisplayFragment : Fragment() {
     private fun multiply(number1 : Double, number2 : Double) = (number1 * number2).toString()
     private fun divide(number1 : Double, number2 : Double) = (number1 / number2).toString()
     private fun mod(number1 : Double, number2 : Double) = (number1 % number2).toString()
+
+    private fun clear() {
+        binding.tvDisplay.text = "0"
+        calculate.clear()
+        newNum = true
+    }
+    private fun clearEntry() {
+        binding.tvDisplay.text = "0"
+        newNum = true
+    }
 }
