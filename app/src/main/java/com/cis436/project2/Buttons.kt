@@ -36,6 +36,7 @@ class Buttons : Fragment() {
     ): View? {
         binding = FragmentButtonsBinding.inflate(inflater, container, false)
 
+        //Numbers Buttons
         binding.btZero.setOnClickListener {
             buttonPressed("0")
         }
@@ -71,6 +72,20 @@ class Buttons : Fragment() {
         }
         binding.btInverse.setOnClickListener {
             buttonPressed("!")
+        }
+
+        //Arithmetic Buttons
+        binding.btAdd.setOnClickListener {
+            buttonPressed("+")
+        }
+        binding.btSubtract.setOnClickListener {
+            buttonPressed("-")
+        }
+        binding.btMultiply.setOnClickListener {
+            buttonPressed("*")
+        }
+        binding.btDivide.setOnClickListener {
+            buttonPressed("/")
         }
 
         return binding.root
