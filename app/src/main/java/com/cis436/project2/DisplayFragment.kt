@@ -32,10 +32,13 @@ class DisplayFragment : Fragment() {
     fun updateDisplay(character : String) {
         var currentNum = binding.tvDisplay.text.toString()
         when (character) {
+            //Arithmetic
             "+" -> setCalculation(currentNum, character)
             "-" -> setCalculation(currentNum, character)
             "*" -> setCalculation(currentNum, character)
             "/" -> setCalculation(currentNum, character)
+            "=" -> solution(currentNum)
+            //Set Numbers
             "!" -> inverse(currentNum)
             "." -> {
                 currentNum = currentNum.replace(character, "")
@@ -60,6 +63,7 @@ class DisplayFragment : Fragment() {
                 "-" + number
             }
             binding.tvDisplay.text = inverseNum
+            newNum = false
         }
     }
 
@@ -67,20 +71,9 @@ class DisplayFragment : Fragment() {
         calculate.add(number)
 
         if (calculate.size == 3) {
-            val number1 = calculate.remove()
-            val arithmetic = calculate.remove()
-            val number2 = calculate.remove()
-
-            val result = when (arithmetic) {
-                "+" -> add(number1.toDouble(), number2.toDouble())
-                "-" -> subtract(number1.toDouble(), number2.toDouble())
-                "*" -> multiply(number1.toDouble(), number2.toDouble())
-                "/" -> divide(number1.toDouble(), number2.toDouble())
-                else -> 0.0
-            }
-
-            calculate.add(result.toString())
-            binding.tvDisplay.text = result.toString()
+            val result = calc()
+            calculate.add(result)
+            binding.tvDisplay.text = result
         }
 
         calculate.add(operation)
@@ -90,10 +83,36 @@ class DisplayFragment : Fragment() {
 
         newNum = true
     }
+    private fun solution(number : String) {
+        calculate.add(number)
+        if (calculate.size == 3) {
+            val result = calc()
+            binding.tvDisplay.text = result
+        }
+        calculate.clear()
+        newNum = true
+    }
 
     //Arithmetic Operations
-    private fun add(number1 : Double, number2 : Double) = number1 + number2
-    private fun subtract(number1 : Double, number2 : Double) = number1 - number2
-    private fun multiply(number1 : Double, number2 : Double) = number1 * number2
-    private fun divide(number1 : Double, number2 : Double) = number1 / number2
+    private fun calc() : String {
+        val number1 = calculate.remove()
+        val arithmetic = calculate.remove()
+        val number2 = calculate.remove()
+
+        var result =  when (arithmetic) {
+            "+" -> add(number1.toDouble(), number2.toDouble())
+            "-" -> subtract(number1.toDouble(), number2.toDouble())
+            "*" -> multiply(number1.toDouble(), number2.toDouble())
+            "/" -> divide(number1.toDouble(), number2.toDouble())
+            else -> "0"
+        }
+
+        if (result.endsWith(".0")) result = result.replace(".0", "")
+
+        return result
+    }
+    private fun add(number1 : Double, number2 : Double) = (number1 + number2).toString()
+    private fun subtract(number1 : Double, number2 : Double) = (number1 - number2).toString()
+    private fun multiply(number1 : Double, number2 : Double) = (number1 * number2).toString()
+    private fun divide(number1 : Double, number2 : Double) = (number1 / number2).toString()
 }

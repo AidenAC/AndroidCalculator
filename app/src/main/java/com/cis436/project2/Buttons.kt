@@ -87,6 +87,9 @@ class Buttons : Fragment() {
         binding.btDivide.setOnClickListener {
             buttonPressed("/")
         }
+        binding.btEquals.setOnClickListener {
+            buttonPressed("=")
+        }
 
         return binding.root
     }
