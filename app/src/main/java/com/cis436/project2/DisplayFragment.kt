@@ -15,6 +15,8 @@ class DisplayFragment : Fragment() {
 
     private var calculate : Queue<String> = LinkedList()
 
+    private var newNum = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -40,11 +42,12 @@ class DisplayFragment : Fragment() {
                 binding.tvDisplay.text = currentNum + character
             }
             else -> {
-                if (currentNum.toDouble() == 0.0) {
+                if (currentNum == "0" || newNum) {
                     binding.tvDisplay.text = character
                 } else {
                     binding.tvDisplay.text = binding.tvDisplay.text.toString() + character
                 }
+                newNum = false
             }
         }
     }
@@ -62,11 +65,35 @@ class DisplayFragment : Fragment() {
 
     private fun setCalculation(number : String, operation : String) {
         calculate.add(number)
+
+        if (calculate.size == 3) {
+            val number1 = calculate.remove()
+            val arithmetic = calculate.remove()
+            val number2 = calculate.remove()
+
+            val result = when (arithmetic) {
+                "+" -> add(number1.toDouble(), number2.toDouble())
+                "-" -> subtract(number1.toDouble(), number2.toDouble())
+                "*" -> multiply(number1.toDouble(), number2.toDouble())
+                "/" -> divide(number1.toDouble(), number2.toDouble())
+                else -> 0.0
+            }
+
+            calculate.add(result.toString())
+            binding.tvDisplay.text = result.toString()
+        }
+
         calculate.add(operation)
 
         //Debug: print queue to console
         for (item in calculate) Log.d("MyTag", item)
 
-        binding.tvDisplay.text = "0"
+        newNum = true
     }
+
+    //Arithmetic Operations
+    private fun add(number1 : Double, number2 : Double) = number1 + number2
+    private fun subtract(number1 : Double, number2 : Double) = number1 - number2
+    private fun multiply(number1 : Double, number2 : Double) = number1 * number2
+    private fun divide(number1 : Double, number2 : Double) = number1 / number2
 }
