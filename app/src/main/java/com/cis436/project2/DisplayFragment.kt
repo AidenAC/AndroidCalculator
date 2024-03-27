@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.cis436.project2.databinding.FragmentDisplayBinding
 import java.util.LinkedList
 import java.util.Queue
+import kotlin.math.sqrt
 
 class DisplayFragment : Fragment() {
     private lateinit var binding: FragmentDisplayBinding
@@ -37,6 +38,13 @@ class DisplayFragment : Fragment() {
             "-" -> setCalculation(currentNum, character)
             "*" -> setCalculation(currentNum, character)
             "/" -> setCalculation(currentNum, character)
+            "%" -> setCalculation(currentNum, character)
+            "SQRT" -> {
+                var result = sqrt(currentNum.toDouble()).toString()
+                if (result.endsWith(".0")) result = result.replace(".0", "")
+                binding.tvDisplay.text = result
+                newNum = true
+            }
             "=" -> solution(currentNum)
             //Set Numbers
             "!" -> inverse(currentNum)
@@ -104,6 +112,7 @@ class DisplayFragment : Fragment() {
             "-" -> subtract(number1.toDouble(), number2.toDouble())
             "*" -> multiply(number1.toDouble(), number2.toDouble())
             "/" -> divide(number1.toDouble(), number2.toDouble())
+            "%" -> mod(number1.toDouble(), number2.toDouble())
             else -> "0"
         }
 
@@ -115,4 +124,5 @@ class DisplayFragment : Fragment() {
     private fun subtract(number1 : Double, number2 : Double) = (number1 - number2).toString()
     private fun multiply(number1 : Double, number2 : Double) = (number1 * number2).toString()
     private fun divide(number1 : Double, number2 : Double) = (number1 / number2).toString()
+    private fun mod(number1 : Double, number2 : Double) = (number1 % number2).toString()
 }
